@@ -8,7 +8,7 @@ import math
 
 if __name__ == '__main__':
 
-    env = gym.make("CartPole-v1")
+    env = gym.make("CartPole-v1", render_mode="human")
     observation, info = env.reset()
     replay_memory = ReplayMemory(capacity=10000)
     dqn = DQN(memory=replay_memory, batch_side=128)
@@ -41,7 +41,8 @@ if __name__ == '__main__':
         next_observation, reward, terminated, truncated, info = env.step(action)
         reward_list.append(reward)
 
-        replay_memory.push(torch.tensor(observation), torch.tensor([action]), torch.tensor(next_observation),
+        replay_memory.push(torch.tensor(observation), torch.tensor([action]),
+                           torch.tensor(next_observation) if terminated == False else None,
                            torch.tensor([reward]))
 
         observation = next_observation

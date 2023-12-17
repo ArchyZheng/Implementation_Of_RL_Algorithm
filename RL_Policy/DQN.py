@@ -81,7 +81,7 @@ class DQN:
             next_state_value[non_final_mask] = \
             self.target_network(non_final_next_state.view(-1, 4)).max(dim=1, keepdim=True)[0]
 
-        expected_state_value = next_state_value * self.gamma + reward_batch.view(-1, 1)[non_final_mask]
+        expected_state_value = next_state_value * self.gamma + reward_batch.view(-1, 1)
 
         criterion = nn.SmoothL1Loss()
         loss = criterion(action_value, expected_state_value)
