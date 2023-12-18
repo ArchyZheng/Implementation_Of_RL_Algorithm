@@ -35,4 +35,10 @@ class PolicyNetwork(nn.Module):
 
 
 class PolicyGradient:
-    def __init__(self):
+    def __init__(self, env):
+        action_dim = env.action_space.shape[0]
+        observation_dim = env.observation_space.shape[0]
+
+
+
+
